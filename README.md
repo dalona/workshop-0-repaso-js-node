@@ -392,6 +392,52 @@ const displayError = (error) => {
 
 Explica el código proporcionado línea por línea en el archivo `README.md` de tu repositorio. Asegúrate de describir cómo se aplican los conceptos de control de flujo, funciones de flecha, JSON, promesas y depuración.
 
+```javascript
+document.getElementById('fetch-posts').addEventListener('click', () => {
+    fetchPosts();
+});
+
+const fetchPosts = () => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(posts => {
+            displayPosts(posts);
+        })
+        .catch(error => {
+            displayError(error);
+        });
+};
+```
+Aqui primerante traemos el boton de HTML que tiene el id 'fetch-posts' y cuando le damos click ejecutara la funcion "fetchPosts".
+
+La funcion "fetchPosts" utiliza el metodo fetch() para hacer una solicitud a la URL proporcionada que es una (Interfaz de programacion de aplicacions, API) que nos arroja unos datos de prueba.
+
+.then nos ayuda manejar la respuesta de la solicitud y luego el condicional indica que si la respuesta no esta bien (ok) entonces nos lanzara un mensaje con un error, pero si la respuesta es exitosa se convertira en un objeto (JSON) Y CONTINUA con el siguiente .then donde se ejecutará la función "displayPosts" y atrapara los errorres. 
+
+
+```javascript
+const displayPosts = (posts) => {
+    const postList = document.getElementById('post-list');
+    postList.innerHTML = '';
+    posts.forEach(post => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Title: ${post.title}`;
+        postList.appendChild(listItem);
+    });
+};
+
+const displayError = (error) => {
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = `Error: ${error.message}`;
+```
+
+La funcion "displayPosts" nos permiten renderizar los datos que la API nos devolvio despues de hacerle la solicitud y la funcion displayError muestra un mensaje de error en el HTML.
+
 ## Punto 4: Ejercicio Independiente - Creando una Aplicación de Gestión de Productos con la API de Platzi
 
 En este cuarto punto, crearás una aplicación que consuma datos de la API de Platzi Fake Store y muestre la información de productos de manera interactiva y visualmente atractiva. Durante el proceso, se evaluarán los siguientes temas:
