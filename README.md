@@ -187,11 +187,31 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
+Luego en el método "renderTasks" que nos permite mostrar los elementos. Creamos los botones para eliminar y editar la tarea. Y fueron añadidos al DOM con el metodo "appendChild"
 
+```javascript
+            const completedButton = document.createElement('button');
+            completedButton.textContent = 'Completar';
+            completedButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evitar que el evento se propague al elemento padre, ¿Por qué? Porque el evento click en el botón también se propaga al elemento li.
+                this.toggleTaskComplete(task.id);
+            });
 
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Editar';
+            editButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evitar que el evento se propague al elemento padre, ¿Por qué? Porque el evento click en el botón también se propaga al elemento li.
+                const newDescription = prompt("Editar Tarea", task.description)
+                this.editTask(task.id, newDescription);
+            });
 
+            
+            item.appendChild(deleteButton);
+            taskList.appendChild(item);
+            item.appendChild(completedButton);
+            item.appendChild(editButton);
 
-
+```
 
 
 ## Punto 2: Ejercicio Independiente - Creando una Aplicación de Gestión de Notas
@@ -242,6 +262,27 @@ Desarrolla la aplicación de acuerdo a los criterios de aceptación mencionados.
 4. Eliminar una nota.
 5. Verificar que las notas se almacenan y recuperan correctamente en `localStorage`.
 6. Documentar el proceso y el código en el archivo `README.md` de tu repositorio.
+
+
+### Numeral 6. Punto 2 (Documentar el proceso y el código en el archivo `README.md` de tu repositorio.)
+En el segundo punto para realizar el "Gestor de Notas" muy similar al del primer punto. Creamos 2 clases con cada uno de sus metodos. A cada botón que creamos le agregamos un escuchador de eventos (addeventListener) y le indicamos que espere a que todo el DOM haya sido cargado primero antes de ejecutar la funcion callback, esto nos asegura que todos los elementos HTML estén manipulados por JavaScript.
+
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+    const taskManager = new TaskManager();
+
+    document.getElementById('add-task').addEventListener('click', () => {
+        const newTask = document.getElementById('new-task').value;
+        if (newTask) {
+            taskManager.addTask(newTask);
+            document.getElementById('new-task').value = '';
+        }
+        else{
+            alert("Por favor ingrese una tarea");
+        }
+    });
+});
+```
 
 ## Punto 3: Ejercicio Guiado - Consumiendo una API con JSONPlaceholder
 
