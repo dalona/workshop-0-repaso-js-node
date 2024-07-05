@@ -165,6 +165,35 @@ document.addEventListener('DOMContentLoaded', () => {
     - Verificar que las tareas se almacenan y recuperan correctamente en `localStorage`.
 4. **Analisis**: Explicar el código proporcionado linea por linea en el archivo `README.md` de tu repositorio.
 
+
+
+### Analisis
+En el primer punto para realizar el "Gestor de Tareas" encontré un error cuando se seleccionaba el elemento "añadir tarea". Ya que el condicional que tenia estaba incompleto. Simplemente al agregarle un "else" y notificando que el campo estaba vacio se depuro la primera parte.
+
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+    const taskManager = new TaskManager();
+
+    document.getElementById('add-task').addEventListener('click', () => {
+        const newTask = document.getElementById('new-task').value;
+        if (newTask) {
+            taskManager.addTask(newTask);
+            document.getElementById('new-task').value = '';
+        }
+        else{
+            alert("Por favor ingrese una tarea");
+        }
+    });
+});
+```
+
+
+
+
+
+
+
+
 ## Punto 2: Ejercicio Independiente - Creando una Aplicación de Gestión de Notas
 
 En este segundo punto, crearás una aplicación de gestión de notas que te permitirá añadir, editar, eliminar y marcar notas como importantes. Durante el proceso, se evaluarán los siguientes temas:
