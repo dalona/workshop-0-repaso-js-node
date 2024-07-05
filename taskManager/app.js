@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('new-task').value = '';
         }
         else{
-            alert("Por favor ingrese una tarea");
+            alert("Please enter a task");
         }
     });
 
