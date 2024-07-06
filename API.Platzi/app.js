@@ -17,6 +17,7 @@ const fetchProducts = async () => {
                 <p>${product.description}</p>
                 <img src=${product.images} alt="images">
                 <h3>$${product.price}.00</h3>
+                <p>Category:${product.category.id}${product.category.name}</p>
             </div>
         `
     });
