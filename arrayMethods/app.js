@@ -15,15 +15,57 @@ const products = [
 ];
 
 
-const $listProducts = document.getElementById('view');
+const $listProducts = document.getElementById('view');/*Pintar boton*/
+const $lista = document.getElementById("lista") /*Para poderlos pintar en forma de la lista que yo tengo en HTML */
+const $totalValueButton = document.getElementById("totalValueButton")
+const $filterByCategorybutton = document.getElementById ("btn-filter-by-product")
 
-const viewButton = document.createElement('button');
-viewButton.textContent= 'View Products';
-viewButton.addEventListener('click', (e)=> {
+$listProducts.addEventListener('click', (e)=> {
+    $lista.innerHTML = ``;
     e.stopPropagation();
     products.forEach(product => {
         const $item = document.createElement('li')
         $item.textContent = `ID:${product.id} Name: ${product.name} Category: ${product.category} Price: ${product.price} Stock: ${product.stock}`
-        $listProducts.appendChild($item)  
+        
+        $lista.appendChild($item)
+        
     })
 })
+
+$totalValueButton.addEventListener('click', (e) => {
+    TotalValue(products);
+})
+
+
+$filterByCategorybutton.addEventListener('click', (e) => {
+    let categoryRequest = prompt("Enter the keyword").trim()
+   
+    if (categoryRequest){
+        FilterbyCategory(products,categoryRequest);
+    }else{
+        alert('Please enter all the fields')
+    }
+})
+
+
+const TotalValue = () => {
+    const TotalValue = products.reduce((contador, currentValuei) => contador + currentValuei.price, 0)
+    document.getElementById('totalValue').textContent = `The Total value of the stock is: ${TotalValue}`
+
+
+}
+
+const FilterbyCategory = (products,category) => {
+    const productByCategory = products.filter((product) => category === product.category)
+    if(productByCategory.length){
+        productByCategory.forEach(product =>{
+            const $item = document.createElement('h3')
+            $item.textContent = `Products by Category : ${product.name}`
+            const $showproductsByCategory = document.getElementById('category')
+            
+            $showproductsByCategory.appendChild($item)
+        })
+    }else{
+        alert("No hay productos por esa categorias") 
+    }
+}
